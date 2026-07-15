@@ -4,23 +4,27 @@ import Link from "next/link";
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { LogIn, Menu } from "lucide-react";
+import { Loader, LogIn, Menu } from "lucide-react";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { handleRegister } from "../_actions/login";
 
 export function Header() {
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const session = false;
 
   const navItems = [{ name: "Profissionais", href: "/(public)/profissionais" }];
+
+  async function handleRegisterClick() {
+    await handleRegister("GitHub");
+  }
 
   const NavLinks = () => (
     <>
@@ -36,18 +40,23 @@ export function Header() {
         </Button>
       ))}
 
-      {session ? (
+      {status === "loading" ? (
+        <>
+          <Loader className="animate-spin h-4 w-4 text-[#1A2E35]" />
+        </>
+      ) : session ? (
         <Button
           variant="ghost"
           asChild
           className="bg-emerald-500 hover:bg-emerald-600 text-black px-5 py-2 h-auto text-sm shadow-none rounded-xl font-bold transition-all duration-300 cursor-pointer"
         >
-          <Link href="/(painel)/dashboard">Acessar o Painel</Link>
+          <Link href="/dashboard">Acessar o Painel</Link>
         </Button>
       ) : (
         <Button
           variant="default"
           className="bg-emerald-500 hover:bg-emerald-600 text-black px-5 py-2 h-auto text-sm shadow-none rounded-xl font-bold transition-all duration-300 cursor-pointer"
+          onClick={handleRegisterClick}
         >
           <LogIn className="mr-2 h-4 w-4" />
           Portal da Clinica

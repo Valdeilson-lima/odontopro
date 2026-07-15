@@ -1,4 +1,14 @@
-export default function DashboardPage() {
+import GetSession from "@/lib/getSession";
+import { redirect } from "next/navigation";
+
+export default async function DashboardPage() {
+  const session = await GetSession();
+
+  if (!session) {
+    redirect("/");
+  }
+
+  console.log("Session:", session.user);
   return (
     <div>
       <h1>Dashboard</h1>
