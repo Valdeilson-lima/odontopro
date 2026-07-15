@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OdontoPro
 
-## Getting Started
+Sistema de gestão odontológica desenvolvido com Next.js.
 
-First, run the development server:
+## Stack
+
+- **Framework:** Next.js 16 + React 19
+- **Linguagem:** TypeScript
+- **Estilização:** Tailwind CSS 4 + shadcn/ui
+- **Banco de Dados:** MySQL via Prisma 7 + MariaDB
+- **Autenticação:** NextAuth 5
+- **Pagamentos:** Stripe (subscription)
+
+## Funcionalidades
+
+- Página pública com apresentação da clínica
+- Dashboard administrativo
+- Gerenciamento de serviços odontológicos
+- Agendamento de consultas
+- Sistema de planos (BASIC / PROFESSIONAL)
+- Perfil do usuário
+- Autenticação com provedores OAuth e WebAuthn
+
+## Pré-requisitos
+
+- Node.js 20+
+- MySQL
+
+## Como Rodar
 
 ```bash
+# Instalar dependências
+npm install
+
+# Configurar variáveis de ambiente
+cp .env.example .env
+# Edite .env com suas credenciais do banco e chaves de API
+
+# Rodar migrations
+npx prisma migrate dev
+
+# Iniciar servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando         | Descrição                          |
+| --------------- | ---------------------------------- |
+| `npm run dev`   | Inicia servidor de desenvolvimento |
+| `npm run build` | Build de produção                  |
+| `npm run start` | Inicia servidor de produção        |
 
-## Learn More
+## Commits
 
-To learn more about Next.js, take a look at the following resources:
+Este projeto usa [Conventional Commits](https://www.conventionalcommits.org/). Commits que não seguirem o padrão serão rejeitados pelos hooks do Husky.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+feat: adicionar nova funcionalidade
+fix: corrigir bug
+chore: tarefa de manutenção
+docs: atualizar documentação
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Projeto
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── (public)/          # Página pública (landing page)
+│   └── (painel)/
+│       └── dashboard/     # Painel administrativo
+│           ├── services/
+│           ├── plans/
+│           └── profile/
+├── components/ui/         # Componentes shadcn/ui
+└── lib/                   # Utilitários e configurações
+prisma/
+└── schema.prisma          # Schema do banco de dados
+```
