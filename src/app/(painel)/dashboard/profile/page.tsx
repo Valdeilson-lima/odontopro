@@ -1,4 +1,13 @@
-export default function Profile() {
+import { getInfoUser } from "./_data-access/get-info-user";
+import getSession from "@/lib/getSession";
+
+export default async function Profile() {
+  const session = await getSession();
+  console.log("Session data:", session);
+
+  const user = await getInfoUser({ userId: session?.user?.id || "" });
+  console.log("User data:", user);
+
   return (
     <div className="flex flex-col min-h-screen">
       <div className="grow">
