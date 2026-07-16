@@ -158,6 +158,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                   variant="outline"
                   size="icon"
                   className="md:hidden cursor-pointer"
+                  onClick={() => setIsCollapsed(false)}
                 >
                   <List className="h-4 w-4" />
                 </Button>
