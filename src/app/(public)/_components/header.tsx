@@ -49,6 +49,7 @@ export function Header() {
           variant="ghost"
           asChild
           className="bg-emerald-500 hover:bg-emerald-600 text-black px-5 py-2 h-auto text-sm shadow-none rounded-xl font-bold transition-all duration-300 cursor-pointer"
+          onClick={() => setIsOpen(false)}
         >
           <Link href="/dashboard">Acessar o Painel</Link>
         </Button>
