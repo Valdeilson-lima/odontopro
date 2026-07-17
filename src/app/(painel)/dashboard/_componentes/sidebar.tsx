@@ -35,6 +35,7 @@ import img from "../../../../../public/logo-odonto.png";
 export function SidebarDashboard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   console.log("Current pathname:", pathname);
   return (
@@ -151,7 +152,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
         })}
       >
         <header className="flex items-center justify-between bg-white px-4 py-2 shadow-md md:px-6 md:hidden z-10 sticky top-0">
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <div className="flex items-center gap-4">
               <SheetTrigger asChild>
                 <Button
@@ -182,6 +183,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                   label="Agendamentos"
                   pathname={pathname}
                   isCollapsed={isCollapsed}
+                  onClick={() => setIsSheetOpen(false)}
                 />
 
                 <SidebarLink
@@ -190,6 +192,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                   label="Serviços"
                   pathname={pathname}
                   isCollapsed={isCollapsed}
+                  onClick={() => setIsSheetOpen(false)}
                 />
 
                 <SidebarLink
@@ -198,6 +201,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                   label="Meu Perfil"
                   pathname={pathname}
                   isCollapsed={isCollapsed}
+                  onClick={() => setIsSheetOpen(false)}
                 />
 
                 <SidebarLink
@@ -206,6 +210,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                   label="Meus Planos"
                   pathname={pathname}
                   isCollapsed={isCollapsed}
+                  onClick={() => setIsSheetOpen(false)}
                 />
               </nav>
             </SheetContent>
@@ -224,6 +229,7 @@ interface SidebarLinkProps {
   label: string;
   pathname: string;
   isCollapsed: boolean;
+  onClick?: () => void;
 }
 
 function SidebarLink({
@@ -232,10 +238,11 @@ function SidebarLink({
   label,
   pathname,
   isCollapsed,
+  onClick,
 }: SidebarLinkProps) {
   const isActive = pathname === href;
   return (
-    <Link href={href}>
+    <Link href={href} onClick={onClick}>
       <div
         className={clsx(
           "flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-blue-200",
