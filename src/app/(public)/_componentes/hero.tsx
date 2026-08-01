@@ -5,7 +5,7 @@ import image from "../../../../public/doctor-hero.png";
 export default function Hero() {
   return (
     <section className="pt-5">
-      <div className="container mx-auto px-4 pt-20 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 pt-20 sm:px-6 lg:px-8 pb-4 sm:pb-0">
         <main className="flex items-center justify-center">
           <article className="flex-2 space-y-8 max-w-3xl flex flex-col items-center text-center md:text-left md:items-start">
             <h1 className="text-3xl lg:text-5xl font-bold max-w-2xl tracking-tight">
