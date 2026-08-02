@@ -19,10 +19,7 @@ export default function Header() {
 
   const session = false;
 
-  const navItems = [
-    { href: "#profissionais", label: "Profissionais" },
-    { href: "#servicos", label: "Serviços" },
-  ];
+  const navItems = [{ href: "#profissionais", label: "Profissionais" }];
 
   const NavLinks = () => (
     <>
@@ -81,7 +78,7 @@ export default function Header() {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-60 sm:w-75 z-9999 items-start"
+            className="w-60 sm:w-75 z-9999 items-start text-black"
           >
             <SheetHeader>
               <SheetTitle className="text-xl font-bold">Menu</SheetTitle>
