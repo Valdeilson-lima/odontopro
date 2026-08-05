@@ -1,3 +1,4 @@
+import { formatPhone } from "@/utils/formatPhone";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,7 +33,7 @@ export function useUserProfileForm({
     defaultValues: {
       name: name || "",
       address: address || "",
-      phone: phone || "",
+      phone: phone ? formatPhone(phone) : "",
       status: status ?? true,
       timeZone: timeZone || "",
     },

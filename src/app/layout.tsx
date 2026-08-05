@@ -32,7 +32,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <SessionAuthProvider>
-          <Toaster />
+          <Toaster timeout={5000} />
           {children}
         </SessionAuthProvider>
       </body>

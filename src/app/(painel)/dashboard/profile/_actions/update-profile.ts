@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { extracPhoneNumber } from "@/utils/formatPhone";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -36,7 +37,7 @@ export async function updateProfile(data: UpdateProfileData) {
       data: {
         name: data.name,
         address: data.address,
-        phone: data.phone,
+        phone: data.phone ? extracPhoneNumber(data.phone) : null,
         status: data.status,
         timeZone: data.timeZone,
         times: data.times,
@@ -48,7 +49,6 @@ export async function updateProfile(data: UpdateProfileData) {
       success: "Perfil atualizado com sucesso.",
     };
   } catch (error) {
-    console.error("Erro ao atualizar o perfil:", error);
     return { error: "Erro ao atualizar o perfil." };
   }
 }
