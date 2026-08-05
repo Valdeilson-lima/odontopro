@@ -35,8 +35,6 @@ export default function SidebarDashboard({
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  console.log("Current pathname:", pathname);
-
   return (
     <div className="flex min-h-screen w-full">
       <aside

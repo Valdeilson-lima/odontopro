@@ -12,14 +12,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { LoaderCircle, LogIn, Menu, UserRound, Users } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { loginWithGitHub } from "../_actions/login";
 
 export default function Header() {
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
-  const session = false;
-
   const navItems = [{ href: "#profissionais", label: "Profissionais" }];
+
+  async function handleLogin() {
+    await loginWithGitHub("github");
+  }
 
   const NavLinks = () => (
     <>
@@ -29,23 +34,36 @@ export default function Header() {
           onClick={() => setIsOpen(false)}
           className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500"
         >
-          <Link href={item.href}>{item.label}</Link>
+          <div className="flex items-center gap-2">
+            <Users />
+            <Link href={item.href}>{item.label}</Link>
+          </div>
         </Button>
       ))}
 
-      {session ? (
+      {status === "loading" ? (
         <Button
-          onClick={() => setIsOpen(false)}
           className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500"
+          disabled
         >
-          <Link href="/minha-conta">Minha Conta</Link>
+          <LoaderCircle className="animate-spin" />
+        </Button>
+      ) : session ? (
+        <Button className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500">
+          <div className="flex items-center gap-2">
+            <UserRound />
+            <Link href="/dashboard">{session.user?.name}</Link>
+          </div>
         </Button>
       ) : (
         <Button
-          onClick={() => setIsOpen(false)}
-          className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500"
+          className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500 cursor-pointer"
+          onClick={handleLogin}
         >
-          <Link href="/login">Login</Link>
+          <div className="flex items-center gap-2">
+            <LogIn />
+            Login
+          </div>
         </Button>
       )}
     </>
