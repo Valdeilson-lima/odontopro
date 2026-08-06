@@ -13,8 +13,10 @@ export async function getAllServices({ userId }: { userId: string }) {
       select: {
         id: true,
         name: true,
+        status: true,
         description: true,
         price: true,
+        duration: true,
         createdAt: true,
       },
     });

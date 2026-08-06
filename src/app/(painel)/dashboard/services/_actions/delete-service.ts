@@ -4,19 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 const createServiceSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "O nome deve ter pelo menos 2 caracteres" }),
-  description: z.string().optional(),
-  price: z
-    .number()
-    .min(1, { message: "O preço deve ser maior ou igual a zero" }),
-  duration: z.number(),
+  serviceId: z.string().min(1, { message: "O ID do serviço é obrigatório" }),
 });
 
 type CreateServiceData = z.infer<typeof createServiceSchema>;
 
-export async function createNewService(data: CreateServiceData) {
+export async function deleteService(data: CreateServiceData) {
   const session = await auth();
   if (!session?.user?.id) {
     return { error: "Usuário não autenticado." };
@@ -30,23 +23,18 @@ export async function createNewService(data: CreateServiceData) {
   }
 
   try {
-    const newService = await prisma.service.create({
+    await prisma.service.update({
+      where: { id: data.serviceId, userId: session.user.id },
       data: {
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        duration: data.duration,
-        userId: session.user.id,
+        status: false,
       },
     });
-
     revalidatePath("/dashboard/services");
 
     return {
-      data: newService,
-      success: "Serviço criado com sucesso.",
+      success: "Serviço excluído com sucesso.",
     };
   } catch (error) {
-    return { error: "Erro ao criar o serviço." };
+    return { error: "Erro ao excluir o serviço." };
   }
 }

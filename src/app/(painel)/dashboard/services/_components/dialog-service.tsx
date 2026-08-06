@@ -19,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/toast";
 import { convertRealToCents } from "@/utils/convertCurrency";
 import { Save } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { createNewService } from "../_actions/create-service";
@@ -34,6 +35,7 @@ interface DialogServiceProps {
 export default function Dialogservice({ clsoseModal }: DialogServiceProps) {
   const [loading, setLoading] = useState(false);
   const form = useDialogServiceForm();
+  const router = useRouter();
 
   const {
     formState: { errors },
@@ -60,15 +62,18 @@ export default function Dialogservice({ clsoseModal }: DialogServiceProps) {
       toast.add({
         title: "Erro!",
         description: response.error,
+        type: "error",
       });
     } else {
       toast.add({
         title: "Sucesso!",
         description: response.success,
+        type: "success",
       });
     }
 
     closeModal();
+    router.refresh();
   }
 
   function closeModal() {
