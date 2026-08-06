@@ -18,6 +18,7 @@ export async function getAllServices({ userId }: { userId: string }) {
         price: true,
         duration: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
 

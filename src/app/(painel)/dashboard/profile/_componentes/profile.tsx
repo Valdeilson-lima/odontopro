@@ -31,8 +31,10 @@ import { cn } from "@/lib/utils";
 import { timeZones } from "@/utils/createTimeZone";
 import { formatPhone } from "@/utils/formatPhone";
 import { generateTimeSlots } from "@/utils/generateTimesSlot";
-import { ArrowBigRight } from "lucide-react";
+import { ArrowBigRight, LogOut } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import imageTest from "../../../../../../public/foto1.png";
@@ -50,10 +52,13 @@ interface ProfileContentProps {
 }
 
 export default function ProfileContent({ user }: ProfileContentProps) {
+  const { update } = useSession();
+  const router = useRouter();
   const [selectedHours, setSelectedHours] = useState<string[]>(
     user.times ?? []
   );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const form = useUserProfileForm({
     name: user.name,
     address: user.address,
@@ -105,6 +110,12 @@ export default function ProfileContent({ user }: ProfileContentProps) {
         });
       }
     }
+  }
+
+  async function handleSignOut() {
+    await signOut();
+    await update();
+    router.replace("/");
   }
 
   return (
@@ -327,6 +338,14 @@ export default function ProfileContent({ user }: ProfileContentProps) {
           </CardContent>
         </Card>
       </form>
+      <Button
+        variant="destructive"
+        className="bg-red-500 hover:bg-red-400 font-bold cursor-pointer mt-4 py-5 text-sm text-white font transition-all duration-300 ease-in-out flex items-center justify-center gap-2"
+        onClick={handleSignOut}
+      >
+        <LogOut className="h-5 w-5" />
+        Sair da conta
+      </Button>
     </div>
   );
 }

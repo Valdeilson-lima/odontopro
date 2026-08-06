@@ -10,11 +10,11 @@ const formSchema = z.object({
   minutes: z.string().optional(),
 });
 
-interface UseDialogServiceFormProps {
+export interface UseDialogServiceFormProps {
   initialValues?: {
     name: string;
-    description?: string;
-    price: number;
+    description?: string | null;
+    price: string;
     hours: string;
     minutes: string;
   };
@@ -22,15 +22,17 @@ interface UseDialogServiceFormProps {
 
 export type DialogServiceFormData = z.infer<typeof formSchema>;
 
-export function useDialogServiceForm() {
+export function useDialogServiceForm({
+  initialValues,
+}: UseDialogServiceFormProps) {
   return useForm<DialogServiceFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      price: "",
-      hours: "",
-      minutes: "",
+      name: initialValues?.name ?? "",
+      description: initialValues?.description ?? "",
+      price: initialValues?.price ?? "",
+      hours: initialValues?.hours ?? "",
+      minutes: initialValues?.minutes ?? "",
     },
   });
 }
