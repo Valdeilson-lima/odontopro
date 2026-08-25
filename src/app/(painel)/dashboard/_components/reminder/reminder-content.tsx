@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "@/components/ui/toast";
 import { Reminder } from "@/generated/prisma/client";
 import { Bell, Plus, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { deleteReminder } from "../../_actions/delete-reminder";
 
 interface ReminderListProps {
   reminders: Reminder[];
@@ -26,9 +29,28 @@ function formatDate(date: Date | string) {
 }
 
 export function ReminderContent({ reminders }: ReminderListProps) {
+  const router = useRouter();
   const sortedReminders = [...reminders].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
+
+  const handleDeleteReminder = async (id: string) => {
+    const response = await deleteReminder({ id });
+    if (response.success) {
+      toast.add({
+        title: "Sucesso",
+        description: response.success,
+        type: "success",
+      });
+    } else {
+      toast.add({
+        title: "Erro",
+        description: response.error,
+        type: "error",
+      });
+      router.refresh();
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -63,7 +85,7 @@ export function ReminderContent({ reminders }: ReminderListProps) {
 
         <CardContent className="pt-0">
           {sortedReminders.length > 0 ? (
-            <ScrollArea className="h-70">
+            <ScrollArea className="h-85 lg:max-h-[calc(100vh-15rem)] pr-0 w-full flex-1 ">
               <ul className="flex flex-col gap-1">
                 {sortedReminders.map((reminder, index) => (
                   <li key={reminder.id}>
@@ -87,6 +109,7 @@ export function ReminderContent({ reminders }: ReminderListProps) {
                         size="icon"
                         className="h-8 w-8 shrink-0 cursor-pointer text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-600"
                         title="Excluir Lembrete"
+                        onClick={() => handleDeleteReminder(reminder.id)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
