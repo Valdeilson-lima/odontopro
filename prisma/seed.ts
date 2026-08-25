@@ -42,6 +42,24 @@ const services = [
   },
 ];
 
+const reminders = [
+  {
+    description: "Ligar para confirmar as consultas de amanhã.",
+  },
+  {
+    description: "Enviar mensagem de retorno para os pacientes que faltaram.",
+  },
+  {
+    description: "Verificar estoque de materiais odontológicos.",
+  },
+  {
+    description: "Confirmar pagamentos pendentes da semana.",
+  },
+  {
+    description: "Agendar retorno dos pacientes em tratamento de canal.",
+  },
+];
+
 async function main() {
   const user = await prisma.user.findFirst({ orderBy: { createdAt: "asc" } });
 
@@ -72,6 +90,29 @@ async function main() {
 
   console.log(
     `${created} serviço(s) criado(s) para o usuário ${user.email ?? user.id}.`
+  );
+  let remindersCreated = 0;
+
+  for (const reminder of reminders) {
+    const existing = await prisma.reminder.findFirst({
+      where: { userId: user.id, description: reminder.description },
+    });
+
+    if (existing) continue;
+
+    await prisma.reminder.create({
+      data: {
+        ...reminder,
+        userId: user.id,
+      },
+    });
+    remindersCreated++;
+  }
+
+  console.log(
+    `${remindersCreated} lembrete(s) criado(s) para o usuário ${
+      user.email ?? user.id
+    }.`
   );
 }
 

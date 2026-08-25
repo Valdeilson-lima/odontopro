@@ -23,10 +23,6 @@ export async function GET(request: NextRequest) {
     const startDate = new Date(year, month - 1, day, 0, 0, 0);
     const endDate = new Date(year, month - 1, day, 23, 59, 59, 999);
 
-    console.log("Buscando agendamentos para o usuário:", userId);
-    console.log("Data de início:", startDate);
-    console.log("Data de fim:", endDate);
-
     const user = await prisma.user.findFirst({
       where: {
         id: userId,
@@ -70,7 +66,6 @@ export async function GET(request: NextRequest) {
     }
 
     const blockedTimes = Array.from(blockedSlots);
-    console.log("Horários bloqueados encontrados:", blockedTimes);
 
     return NextResponse.json(blockedTimes, { status: 200 });
   } catch (error) {
