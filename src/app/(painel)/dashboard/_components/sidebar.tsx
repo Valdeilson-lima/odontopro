@@ -17,6 +17,7 @@ import {
   ChevronRight,
   DollarSign,
   Folder,
+  History,
   List,
   Settings,
 } from "lucide-react";
@@ -73,6 +74,13 @@ export default function SidebarDashboard({
               icon={<Calendar className="w-6 h-6" />}
             />
             <SidebarLinks
+              href="/dashboard/historico"
+              label="Histórico"
+              pathname={pathname}
+              isCollapsed={isCollapsed}
+              icon={<History className="w-6 h-6" />}
+            />
+            <SidebarLinks
               href="/dashboard/services"
               label="Serviços"
               pathname={pathname}
@@ -109,6 +117,13 @@ export default function SidebarDashboard({
                   pathname={pathname}
                   isCollapsed={isCollapsed}
                   icon={<Calendar className="w-6 h-6" />}
+                />
+                <SidebarLinks
+                  href="/dashboard/historico"
+                  label="Histórico"
+                  pathname={pathname}
+                  isCollapsed={isCollapsed}
+                  icon={<History className="w-6 h-6" />}
                 />
                 <SidebarLinks
                   href="/dashboard/services"
@@ -179,6 +194,17 @@ export default function SidebarDashboard({
                   icon={<Calendar className="w-6 h-6" />}
                   onClick={() => setSheetOpen(false)}
                 />
+
+                <nav className="grid gap-2 test-base pt-5">
+                  <SidebarLinks
+                    href="/dashboard/historico"
+                    label="Histórico"
+                    pathname={pathname}
+                    isCollapsed={false}
+                    icon={<History className="w-6 h-6" />}
+                    onClick={() => setSheetOpen(false)}
+                  />
+                </nav>
 
                 <nav className="grid gap-2 test-base pt-5">
                   <SidebarLinks

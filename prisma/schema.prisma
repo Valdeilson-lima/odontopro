@@ -7,8 +7,14 @@ datasource db {
   provider = "postgresql"
 }
 
+enum AppointmentStatus {
+  pending
+  concluido
+  cancelado
+}
+
 model Appointment {
-  id              String   @id @default(uuid())
+  id              String              @id @default(uuid())
   userId          String
   serviceId       String
   name            String
@@ -16,11 +22,11 @@ model Appointment {
   phone           String
   appointmentDate DateTime
   time            String
-  status          String
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  service         Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  status          AppointmentStatus   @default(pending)
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service         Service             @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
 }
 
 model Reminder {

@@ -43,6 +43,9 @@ export async function GET(request: NextRequest) {
           gte: startDate,
           lte: endDate,
         },
+        // Apenas agendamentos pendentes bloqueiam o horário.
+        // Concluídos e cancelados liberam o slot.
+        status: "pending",
       },
       include: {
         service: true,
