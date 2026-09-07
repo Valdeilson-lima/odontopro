@@ -15,7 +15,7 @@ import { Clock3, Eye, User } from "lucide-react";
 import {
   statusConfig,
   type AppointmentWithService,
-} from "../../_components/appointment.tsx/appointment-types";
+} from "../../_components/appointments/appointment-types";
 
 interface HistoryCardProps {
   appointment: AppointmentWithService;

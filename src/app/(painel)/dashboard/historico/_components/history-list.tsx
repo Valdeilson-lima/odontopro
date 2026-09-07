@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { History, Inbox, Search } from "lucide-react";
 import { useState } from "react";
-import type { AppointmentWithService } from "../../_components/appointment.tsx/appointment-types";
+import type { AppointmentWithService } from "../../_components/appointments/appointment-types";
 import { HistoryCard } from "./history-card";
 
 type Filter = "todos" | "concluido" | "cancelado";

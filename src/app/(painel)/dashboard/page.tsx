@@ -8,7 +8,7 @@ import {
 import getSession from "@/lib/getSession";
 import { Calendar } from "lucide-react";
 import Link from "next/link";
-import { Apointments } from "./_components/appointment.tsx/appointments";
+import { Apointments } from "./_components/appointments/appointments";
 import { ButtonCopyLink } from "./_components/button-copy-link";
 import Reminders from "./_components/reminder/reminders";
 

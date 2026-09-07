@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { CalendarDays, Clock3, RefreshCw } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { AppointmentCard } from "./appointment-card";
 import type { AppointmentWithService } from "./appointment-types";
+import { ButtomPickerAppointments } from "./button-date";
 
 interface ApointmentsListProps {
   times: string[];
@@ -55,7 +56,7 @@ export function ApointmentsList({ times }: ApointmentsListProps) {
     refetchIntervalInBackground: false,
   });
 
-  const selectedDate = date ? new Date(date) : new Date();
+  const selectedDate = date ? parseISO(date) : new Date();
   const formattedDate = isNaN(selectedDate.getTime())
     ? "Selecionar data"
     : selectedDate.toLocaleDateString("pt-BR", {
@@ -111,13 +112,7 @@ export function ApointmentsList({ times }: ApointmentsListProps) {
           </CardDescription>
         </div>
 
-        <Button
-          variant="outline"
-          size="sm"
-          className="w-full border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 md:w-auto"
-        >
-          {formattedDate}
-        </Button>
+        <ButtomPickerAppointments />
       </CardHeader>
 
       <CardContent className="pt-0">
