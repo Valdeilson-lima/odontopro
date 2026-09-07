@@ -24,30 +24,16 @@ export const GET = auth(async function GET(req) {
     const dateString =
       searchParams.get("date") ?? new Date().toISOString().slice(0, 10);
 
-    const date = new Date(`${dateString}T00:00:00`);
+    const date = new Date(`${dateString}T00:00:00.000Z`);
 
     if (Number.isNaN(date.getTime())) {
       return NextResponse.json({ error: "Data inválida" }, { status: 400 });
     }
 
-    const startDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      0,
-      0,
-      0,
-      0
-    );
-    const endDate = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      23,
-      59,
-      59,
-      999
-    );
+    const startDate = new Date(`${dateString}T00:00:00.000Z`);
+    const endDate = new Date(`${dateString}T23:59:59.999Z`);
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
 
     const appointments = await prisma.appointment.findMany({
       where: {

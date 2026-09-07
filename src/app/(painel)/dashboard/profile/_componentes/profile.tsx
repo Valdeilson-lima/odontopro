@@ -31,7 +31,7 @@ import { cn } from "@/lib/utils";
 import { timeZones } from "@/utils/createTimeZone";
 import { formatPhone } from "@/utils/formatPhone";
 import { generateTimeSlots } from "@/utils/generateTimesSlot";
-import { ArrowBigRight, LogOut } from "lucide-react";
+import { ArrowBigRight, LogOut, MapPin, ShieldCheck } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -119,23 +119,38 @@ export default function ProfileContent({ user }: ProfileContentProps) {
   }
 
   return (
-    <div className="mx-auto p-1 md:p-0">
+    <div className="w-full p-1 md:p-0">
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">
-              Perfil da Clinica
+        <Card className="overflow-hidden border-[#d9e8e1] bg-white shadow-[0_18px_45px_-35px_#17483b]">
+          <CardHeader className="relative border-b border-[#edf3f0] px-5 py-6 sm:px-7">
+            <div className="absolute inset-y-0 left-0 w-1.5 bg-[#17624f]" />
+            <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.035em] text-[#12352e]">
+              <ShieldCheck className="h-5 w-5 text-[#17624f]" />
+              Perfil da clínica
             </CardTitle>
+            <p className="mt-1 text-sm leading-6 text-[#607770]">
+              Mantenha os dados públicos e os horários de atendimento
+              atualizados.
+            </p>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex justify-center">
-              <div className="relative h-40 w-40 rounded-full overflow-hidden bg-gray-200">
+          <CardContent className="space-y-7 px-5 py-6 sm:px-7">
+            <div className="flex flex-col items-center gap-3 rounded-2xl bg-[#f4f8f6] px-5 py-6 sm:flex-row">
+              <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl bg-[#dceee5] ring-4 ring-white shadow-sm">
                 <Image
                   src={user.image || imageTest}
-                  alt="Profile Image"
+                  alt="Imagem da clínica"
                   fill
                   className="object-cover"
                 />
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="text-base font-semibold text-[#12352e]">
+                  Informações públicas
+                </p>
+                <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-[#71867f] sm:justify-start">
+                  <MapPin className="h-3.5 w-3.5 text-[#e77d52]" />
+                  {user.address || "Endereço ainda não informado"}
+                </p>
               </div>
             </div>
             <div className="space-y-4">

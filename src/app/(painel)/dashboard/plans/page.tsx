@@ -1,7 +1,5 @@
+import PlansContent from "./_components/plans-content";
+
 export default function Plans() {
-  return (
-    <section className="">
-      <h1>Planos</h1>
-    </section>
-  );
+  return <PlansContent />;
 }

@@ -16,7 +16,11 @@ import { addMinutes, format, parse } from "date-fns";
 import { Check, Clock3, Eye, Loader2, User, X } from "lucide-react";
 import { useState } from "react";
 import { updateAppointmentStatus } from "../../_actions/update-appointment-status";
-import { statusConfig, type AppointmentWithService } from "./appointment-types";
+import {
+  formatAppointmentDate,
+  statusConfig,
+  type AppointmentWithService,
+} from "./appointment-types";
 
 interface AppointmentCardProps {
   appointment: AppointmentWithService;
@@ -229,7 +233,7 @@ export function AppointmentCard({
                   Data
                 </p>
                 <p className="text-sm font-medium text-foreground">
-                  {format(new Date(appointment.appointmentDate), "dd/MM/yyyy")}
+                  {formatAppointmentDate(appointment.appointmentDate)}
                 </p>
               </div>
               <div className="rounded-lg bg-muted/50 px-3 py-2">

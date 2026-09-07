@@ -57,41 +57,47 @@ export default function HistoryList({ appointments, error }: HistoryListProps) {
   });
 
   return (
-    <Card className="border border-gray-300 shadow-sm">
-      <CardHeader className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <Card className="border-[#d9e8e1] bg-white shadow-[0_18px_45px_-35px_#17483b]">
+      <CardHeader className="relative flex flex-col gap-3 border-b border-[#edf3f0] px-5 py-6 md:flex-row md:items-center md:justify-between sm:px-7">
+        <div className="absolute inset-y-0 left-0 w-1.5 bg-[#17624f]" />
         <div className="space-y-1">
-          <CardTitle className="flex items-center gap-2 text-lg font-semibold text-foreground">
-            <History className="h-5 w-5 text-emerald-500" />
-            Histórico de agendamentos
+          <p className="text-xs font-semibold tracking-[0.08em] text-[#e77d52]">
+            Registro da clínica
+          </p>
+          <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.035em] text-[#12352e]">
+            <History className="h-5 w-5 text-[#17624f]" />
+            Histórico
           </CardTitle>
-          <CardDescription className="text-sm text-gray-500">
-            Consulte os atendimentos concluídos e cancelados da sua clínica.
+          <CardDescription className="text-sm leading-6 text-[#607770]">
+            Consulte atendimentos concluídos e cancelados.
           </CardDescription>
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0">
-        <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          <div className="rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2">
-            <p className="text-xs font-medium text-emerald-700">Concluídos</p>
-            <p className="text-lg font-bold text-emerald-700">
+      <CardContent className="space-y-4 px-5 py-5 sm:px-7">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="rounded-xl border border-[#d9e8e1] bg-[#f4f8f6] px-3 py-3">
+            <p className="text-xs font-medium text-[#607770]">Concluídos</p>
+            <p className="mt-1 text-xl font-semibold text-[#17624f]">
               {concludedCount}
             </p>
           </div>
-          <div className="rounded-lg border border-rose-100 bg-rose-50 px-3 py-2">
+          <div className="rounded-xl border border-rose-100 bg-rose-50/60 px-3 py-3">
             <p className="text-xs font-medium text-rose-700">Cancelados</p>
-            <p className="text-lg font-bold text-rose-700">{cancelledCount}</p>
+            <p className="mt-1 text-xl font-semibold text-rose-700">
+              {cancelledCount}
+            </p>
           </div>
-          <div className="col-span-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 sm:col-span-1">
-            <p className="text-xs font-medium text-gray-600">Total</p>
-            <p className="text-lg font-bold text-gray-700">
+          <div className="rounded-xl border border-[#e6ece9] bg-[#fafcfb] px-3 py-3">
+            <p className="text-xs font-medium text-[#607770]">Total</p>
+            <p className="mt-1 text-xl font-semibold text-[#12352e]">
               {appointments.length}
             </p>
           </div>
         </div>
 
-        <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex w-fit items-center gap-1 rounded-lg bg-muted/50 p-1">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex w-full items-center gap-1 rounded-xl border border-[#e1ebe6] bg-[#f4f8f6] p-1 sm:w-fit">
             {filters.map((item) => (
               <Button
                 key={item.value}
@@ -100,8 +106,8 @@ export default function HistoryList({ appointments, error }: HistoryListProps) {
                 onClick={() => setFilter(item.value)}
                 className={
                   filter === item.value
-                    ? "bg-white text-emerald-700 shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-white text-[#17624f] shadow-sm"
+                    : "text-[#71867f] hover:text-[#17624f]"
                 }
               >
                 {item.label}
@@ -109,13 +115,13 @@ export default function HistoryList({ appointments, error }: HistoryListProps) {
             ))}
           </div>
 
-          <div className="relative w-full sm:w-72">
-            <Search className="absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <div className="relative w-full sm:w-80">
+            <Search className="absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-[#8aa098]" />
             <Input
               placeholder="Buscar por paciente, e-mail ou serviço..."
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              className="pl-8"
+              className="border-[#d9e8e1] bg-[#fafcfb] pl-8 focus-visible:border-[#17624f]"
             />
           </div>
         </div>

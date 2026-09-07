@@ -32,10 +32,11 @@ export default function Header() {
         <Button
           key={item.href}
           onClick={() => setIsOpen(false)}
-          className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500"
+          variant="ghost"
+          className="font-medium text-slate-600 hover:bg-[#e7f2ed] hover:text-[#17624f]"
         >
           <div className="flex items-center gap-2">
-            <Users />
+            <Users className="h-4 w-4" />
             <Link href={item.href}>{item.label}</Link>
           </div>
         </Button>
@@ -43,25 +44,30 @@ export default function Header() {
 
       {status === "loading" ? (
         <Button
-          className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500"
+          variant="ghost"
+          className="text-slate-500 hover:bg-transparent"
           disabled
         >
-          <LoaderCircle className="animate-spin" />
+          <LoaderCircle className="h-4 w-4 animate-spin" />
         </Button>
       ) : session ? (
-        <Button className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500">
+        <Button
+          variant="ghost"
+          className="font-medium text-slate-600 hover:bg-[#e7f2ed] hover:text-[#17624f]"
+        >
           <div className="flex items-center gap-2">
-            <UserRound />
+            <UserRound className="h-4 w-4" />
             <Link href="/dashboard">{session.user?.name}</Link>
           </div>
         </Button>
       ) : (
         <Button
-          className="bg-emerald-500 py-5 font-bold md:bg-transparent text-black hover:bg-transparent hover:text-emerald-500 cursor-pointer"
+          variant="outline"
+          className="border-[#b9d9ca] bg-white font-semibold text-[#17624f] hover:bg-[#e7f2ed] hover:text-[#104b3d]"
           onClick={handleLogin}
         >
           <div className="flex items-center gap-2">
-            <LogIn />
+            <LogIn className="h-4 w-4" />
             Login
           </div>
         </Button>
@@ -70,11 +76,11 @@ export default function Header() {
   );
 
   return (
-    <header className="fixed top-0 right-0 left-0 w-full bg-white shadow-md z-999 py-4 px-6">
-      <div className="container mx-auto flex items-center justify-between">
+    <header className="fixed top-0 right-0 left-0 z-999 w-full border-b border-[#d9e8e1]/80 bg-[#f4f8f6]/90 px-5 py-3 backdrop-blur-md sm:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link href="/">
-          <h1 className="text-2xl md:text-3xl font-bold text-zinc-800">
-            Odonto<span className="text-emerald-500">Pro</span>
+          <h1 className="text-xl font-semibold tracking-[-0.04em] text-[#12352e] md:text-2xl">
+            Odonto<span className="text-[#e77d52]">Pro</span>
           </h1>
         </Link>
         <nav className="hidden md:flex  space-x-4">
@@ -86,7 +92,7 @@ export default function Header() {
             className="md:hidden"
             render={
               <Button
-                className="text-black hover:bg-transparent "
+                className="text-[#12352e] hover:bg-[#e7f2ed]"
                 variant={"ghost"}
                 size={"icon"}
               />
@@ -96,7 +102,7 @@ export default function Header() {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-60 sm:w-75 z-9999 items-start text-black"
+            className="z-9999 w-60 items-start bg-[#f4f8f6] text-[#12352e] sm:w-75"
           >
             <SheetHeader>
               <SheetTitle className="text-xl font-bold">Menu</SheetTitle>

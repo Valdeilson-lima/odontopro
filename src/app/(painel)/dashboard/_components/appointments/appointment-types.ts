@@ -1,10 +1,20 @@
 import { AppointmentStatus, Prisma } from "@/generated/prisma/browser";
+import { format, parseISO } from "date-fns";
 
 export type AppointmentWithService = Prisma.AppointmentGetPayload<{
   include: {
     service: true;
   };
 }>;
+
+export function formatAppointmentDate(date: Date | string) {
+  const dateString =
+    typeof date === "string"
+      ? date.slice(0, 10)
+      : date.toISOString().slice(0, 10);
+
+  return format(parseISO(dateString), "dd/MM/yyyy");
+}
 
 export const statusConfig: Record<
   AppointmentStatus,

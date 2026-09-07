@@ -13,6 +13,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import { addMinutes, format, parse } from "date-fns";
 import { Clock3, Eye, User } from "lucide-react";
 import {
+  formatAppointmentDate,
   statusConfig,
   type AppointmentWithService,
 } from "../../_components/appointments/appointment-types";
@@ -41,7 +42,7 @@ export function HistoryCard({ appointment }: HistoryCardProps) {
             </div>
             <div>
               <p className="text-sm font-semibold text-foreground">
-                {format(new Date(appointment.appointmentDate), "dd/MM/yyyy")} •{" "}
+                {formatAppointmentDate(appointment.appointmentDate)} •{" "}
                 {appointment.time} – {endTime}
               </p>
               <p className="text-xs text-muted-foreground">
@@ -149,7 +150,7 @@ export function HistoryCard({ appointment }: HistoryCardProps) {
             <div className="rounded-lg bg-muted/50 px-3 py-2">
               <p className="text-xs font-medium text-muted-foreground">Data</p>
               <p className="text-sm font-medium text-foreground">
-                {format(new Date(appointment.appointmentDate), "dd/MM/yyyy")}
+                {formatAppointmentDate(appointment.appointmentDate)}
               </p>
             </div>
             <div className="rounded-lg bg-muted/50 px-3 py-2">

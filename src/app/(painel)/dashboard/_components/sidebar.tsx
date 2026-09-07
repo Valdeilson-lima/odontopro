@@ -40,7 +40,7 @@ export default function SidebarDashboard({
     <div className="flex min-h-screen w-full">
       <aside
         className={clsx(
-          "flex flex-col border-r border-gray-200 bg-background transition-all duration-300 p-4 h-full",
+          "flex min-h-screen flex-col border-r border-[#dce8e3] bg-[#f7fbf9] p-3 transition-all duration-300",
           {
             "w-20": isCollapsed,
             "w-64": !isCollapsed,
@@ -48,12 +48,21 @@ export default function SidebarDashboard({
           }
         )}
       >
-        <div className="mb-6 mt-4">
-          {!isCollapsed && <Image src={logoImage} alt="Logo" quality={100} />}
+        <div className="mb-8 mt-2">
+          <Link href="/" className="flex items-center justify-center">
+            {!isCollapsed && (
+              <Image
+                src={logoImage}
+                alt="OdontoPro"
+                quality={100}
+                className="h-auto w-40"
+              />
+            )}
+          </Link>
         </div>
 
         <Button
-          className="bg-emerald-500 hover:bg-emerald-400 text-white px-4 text-center rounded-md flex items-center justify-center mb-2 self-end cursor-pointer"
+          className="mb-5 self-end rounded-lg border border-[#b9d9ca] bg-white px-3 text-[#17624f] shadow-sm hover:bg-[#e7f2ed] hover:text-[#104b3d]"
           title="Alternar Sidebar"
           onClick={() => setIsCollapsed(!isCollapsed)}
         >
@@ -107,10 +116,10 @@ export default function SidebarDashboard({
         <Collapsible open={!isCollapsed} className="flex flex-col gap-2">
           <CollapsibleContent>
             <nav className="flex flex-col gap-1 overflow-hidden">
-              <span className="text-sm text-gray-500 font-medium mt-2 mb-3 uppercase">
+              <span className="mb-2 mt-1 px-3 text-[11px] font-semibold tracking-[0.08em] text-[#789087]">
                 Painel
               </span>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
                 <SidebarLinks
                   href="/dashboard"
                   label="Agendamentos"
@@ -133,10 +142,10 @@ export default function SidebarDashboard({
                   icon={<Folder className="w-6 h-6" />}
                 />
               </div>
-              <span className="text-sm text-gray-500 font-medium mt-2 mb-3 uppercase">
+              <span className="mb-2 mt-7 px-3 text-[11px] font-semibold tracking-[0.08em] text-[#789087]">
                 Configurações
               </span>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
                 <SidebarLinks
                   href="/dashboard/profile"
                   label="Perfil"
@@ -163,7 +172,7 @@ export default function SidebarDashboard({
           "md:ml-64": !isCollapsed,
         })}
       >
-        <header className="md:hidden flex items-center justify-between bg-white p-4 shadow-md z-10 sticky top-0">
+        <header className="sticky top-0 z-10 flex items-center justify-between border-b border-[#dce8e3] bg-[#f7fbf9]/95 p-4 backdrop-blur-md md:hidden">
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <div className="flex items-center gap-4">
               <SheetTrigger
@@ -173,8 +182,8 @@ export default function SidebarDashboard({
                   </Button>
                 }
               ></SheetTrigger>
-              <h1 className="text-xl font-bold">
-                Menu Odonto<span className="text-emerald-500">Pró</span>
+              <h1 className="text-lg font-semibold tracking-[-0.03em] text-[#12352e]">
+                Menu Odonto<span className="text-[#e77d52]">Pro</span>
               </h1>
             </div>
 
@@ -243,7 +252,9 @@ export default function SidebarDashboard({
           </Sheet>
         </header>
 
-        <main className="flex-1 py-4 px-2 md:p-6">{children}</main>
+        <main className="min-w-0 flex-1 bg-[#f4f8f6] px-3 py-4 sm:px-5 md:p-8">
+          {children}
+        </main>
       </div>
     </div>
   );
@@ -270,14 +281,16 @@ function SidebarLinks({
     <Link href={href} onClick={onClick}>
       <div
         className={clsx(
-          "flex items-center gap-3 px-3 py-2 rounded-md transition-colors duration-200 mx-4 md:mx-0",
+          "group mx-1 flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors duration-200 md:mx-0",
           {
-            "text-white bg-emerald-500": pathname === href,
-            "text-gray-700 hover:bg-gray-100": pathname !== href,
+            "bg-[#17624f] text-white shadow-[0_8px_18px_-12px_#17624f]":
+              pathname === href,
+            "text-[#607770] hover:bg-[#e7f2ed] hover:text-[#17624f]":
+              pathname !== href,
           }
         )}
       >
-        <span className="w-6 h-6">{icon}</span>
+        <span className="flex h-6 w-6 items-center justify-center">{icon}</span>
         {!isCollapsed && <span className="text-sm font-medium">{label}</span>}
       </div>
     </Link>
