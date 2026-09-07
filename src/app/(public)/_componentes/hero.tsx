@@ -51,7 +51,7 @@ export default function Hero() {
               alt="Profissional de odontologia sorrindo"
               width={440}
               height={520}
-              className="h-auto w-full max-w-[25rem] object-contain object-bottom"
+              className="h-auto w-full max-w-100 object-contain object-bottom"
               quality={100}
               priority
             />
